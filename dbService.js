@@ -24,6 +24,74 @@ class DbService {
         return instance ? instance : new DbService();
     }
 
+    async registerUser(username,email,password,plan) {
+        try {
+            const insertId = await new Promise((resolve, reject) => {
+                
+                const query = "INSERT INTO users (username, email, password, plan, userstatus) VALUES (?,?,?,?,?);";
+                connection.query(query, [username,email,password,plan,true] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.insertId);
+                })
+            });
+            // console.log(insertId,Name,Numb);
+            return {
+                id : insertId,
+                Name : username,
+                Numb : email
+            };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async authUser(email) {
+        try {
+            const user = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE email = ?";
+                connection.query(query, [email] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                })
+            });
+            if(user.length==0)
+            {
+                return {
+                    userFound : false
+                };
+            }
+            return {
+                userFound : true,
+                username : user[0].username,
+                password : user[0].password,
+                id : user[0].id
+            };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async deserializeUser(id) {
+        try {
+            const user = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE id = ?";
+                connection.query(query, [id] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result);
+                })
+            });
+            if(user.length==0)
+            {
+                return {
+                    userFound : false
+                };
+            }
+            return user;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -38,6 +106,8 @@ class DbService {
             console.log(error);
         }
     }
+
+
 
     async insertNewName(Name,Numb) {
         try {
