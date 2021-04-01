@@ -70,6 +70,7 @@ app.get('/getticket/:id', checkNotAuthenticated,(request,response) => {
 app.get('/gettrainname/:num', checkNotAuthenticated,(request,response) => {
   const db = dbService.getDbServiceInstance();
   const result = db.getTrainName(request.params.num);
+  console.log(request.params.num);
   result.then(data => {
           response.json({data : data})
       })

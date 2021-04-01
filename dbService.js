@@ -111,6 +111,7 @@ class DbService {
                 const query = "SELECT * FROM trains WHERE train_num= ?;";
                 connection.query(query,[train_id], (err, results) => {
                     if (err) reject(new Error(err.message));
+                    // console.log(results);
                     resolve(results);
                 })
             });

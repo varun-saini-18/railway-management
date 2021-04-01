@@ -33,7 +33,9 @@
 
   <h4>Hello <%= user.username %>
   </h4>
-
+  <input id="search-box" type="number" placeholder="Search PNR Number..">
+  <br>
+  <button type="button" onclick="searchPNR()">Search PNR!</button>
   <table id="table" style="background-color:rgb(226, 228, 146);">
     <thead>
       <th></th>
@@ -57,6 +59,16 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/scripts/ticketsList.js"></script>
+  <script>
+    function searchPNR() {
+      var x = document.getElementById("search-box").value;
+      var link = window.location.href;
+      var res = link.split("/users/");
+      var rl=res[0];
+      var url = rl+'/ticketdetail/'+x;
+      window.location.href = url;
+    }
+  </script>
 </body>
 
 </html>

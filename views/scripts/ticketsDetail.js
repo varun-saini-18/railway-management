@@ -90,17 +90,28 @@ function func() {
         .then((response) => response.json())
     .then(function (result) {
         data=result.data;
-        setTimeout(function(){ document.getElementById("ticket-id").innerHTML = data[0].ticket_id; },10);
-        setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
-        setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
-        setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500); 
-        var url = '/gettrainname/'+data[0].train_num;
-        fetch(url)
-            .then( (response) => response.json())
-        .then(function (result) {
-            var trainName=result.data;
-            setTimeout(function(){ document.getElementById("train-name").innerHTML = trainName[0].train_name; },10);
-        })       
+        if(data.length)
+        {
+            setTimeout(function(){ document.getElementById("ticket-id").innerHTML = data[0].ticket_id; },10);
+            setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
+            setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
+            setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500); 
+            var url = '/gettrainname/'+data[0].train_num;
+            fetch(url)
+                .then( (response) => response.json())
+            .then(function (result) {
+                var trainName=result.data;
+                setTimeout(function(){ document.getElementById("train-name").innerHTML = trainName[0].train_name; },10);
+            })  
+        }
+        else
+        {
+            setTimeout(function(){ document.getElementById("ticket-id").innerHTML = 'Not Found'; },10);
+            setTimeout(function(){ document.getElementById("train-num").innerHTML = 'Not Found'; },500);
+            setTimeout(function(){ document.getElementById("src").innerHTML = 'Not Found'; },1000);
+            setTimeout(function(){ document.getElementById("dest").innerHTML = 'Not Found'; },1500); 
+            setTimeout(function(){ document.getElementById("train-name").innerHTML = 'Not Found'; },10);
+        }   
     })
 }
 
