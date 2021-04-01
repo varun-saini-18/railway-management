@@ -56,12 +56,47 @@ class DbService {
         return instance ? instance : new DbService();
     }
 
-    async registerUser(username,email,password,plan) {
+    async bookTicket(user_id,train_num,src,dest) {
         try {
             const insertId = await new Promise((resolve, reject) => {
                 
-                const query = "INSERT INTO users (username, email, password, plan, userstatus) VALUES (?,?,?,?,?);";
-                connection.query(query, [username,email,password,plan,true] , (err, result) => {
+                const query = "INSERT INTO tickets (user_id, train_num, src,dest) VALUES (?,?,?,?);";
+                connection.query(query, [user_id,train_num,src,dest] , (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    console.log(result);
+                    resolve(result.insertId);
+                })
+            });
+            return {
+                id : insertId
+            };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getTickets(user_id) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM tickets WHERE user_id= ?;";
+                connection.query(query,[user_id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    async registerUser(username,email,password) {
+        try {
+            const insertId = await new Promise((resolve, reject) => {
+                
+                const query = "INSERT INTO users (username, email, password) VALUES (?,?,?);";
+                connection.query(query, [username,email,password] , (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 })
@@ -70,7 +105,7 @@ class DbService {
             return {
                 id : insertId,
                 Name : username,
-                Numb : email
+                Email : email
             };
         } catch (error) {
             console.log(error);

@@ -13,12 +13,9 @@
 
 <body>
 
-  // Div for extra space on top of page
   <div class="navbar" style="background-color:powderblue;">
     <p style="text-align: center;">Railway management system!</p>
   </div>
-
-  // Navigation bar div
   <div class="navbar">
     <a href="#1"><i class="fas fa-search"></i> Query Builder</a>
     <a href="#2"><i class="far fa-file-alt"></i> Reports</a>
@@ -36,6 +33,20 @@
 
   <h4>Hello <%= user.username %>
   </h4>
+
+  <table id="table" style="background-color:rgb(226, 228, 146);">
+    <thead>
+        <th>Train Number</th>
+        <th>Source</th>
+        <th>Destination</th>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="dynamic_list">
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/Scripts/ticketsList.js"></script>
 </body>
 
 </html>

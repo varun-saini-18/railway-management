@@ -35,6 +35,26 @@ app.get("/", checkAuthenticated, (req, res) => {
 });
 
 
+app.post('/bookticket', checkNotAuthenticated,(request,response) => {
+  const db = dbService.getDbServiceInstance();
+  const {train_num,src,dest}= request.body;
+  const result = db.bookTicket(request.user.id,train_num,src,dest);
+  result.then(data => {
+          response.json({data : data})
+      })
+  .catch(err => console.log(err));
+})
+
+app.get('/gettickets', checkNotAuthenticated,(request,response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getTickets(request.user.id);
+  result.then(data => {
+          response.json({data : data})
+      })
+  .catch(err => console.log(err));
+})
+
+
 
 
 // Authentication
@@ -66,9 +86,9 @@ app.get('/getAll', (request, response) => {
 app.post('/users/register', (request,response) => {
   const db = dbService.getDbServiceInstance();
   console.log(request.body);
-  const { username,email,password,plan}= request.body;
+  const { username,email,password}= request.body;
   // console.log(username,email,password,plan);
-  const result = db.registerUser(username,email,password,plan);
+  const result = db.registerUser(username,email,password);
   result.then(data => {
           response.json({data : data})
       })
