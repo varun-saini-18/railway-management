@@ -283,6 +283,31 @@ class DbService {
             console.log(error);
         }
     }
+
+    async addVisitor(ip) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM visits WHERE ip= ?;";
+                connection.query(query,[ip], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    if(results.length)
+                    {
+                        const sql = "UPDATE visits SET count = count + 1 WHERE  ip = ?";
+                        connection.query(sql, [ip], (err, results) => {})
+                    }
+                    else
+                    {
+                        const query = "INSERT INTO visits (ip) VALUES (?);";
+                        connection.query(query, [ip], (err, results) => {})
+                    }
+                })
+            });
+            return 'ok';
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = DbService;

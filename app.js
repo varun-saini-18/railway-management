@@ -146,6 +146,16 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
+// Adding new visitor
+
+app.get('/addvisitor/:ip',(request,response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.addVisitor(request.params.ip);
+  result.then(() => {
+          response.json({data : 'ok'});
+      })
+  .catch(err => console.log(err));
+})
 
 
 

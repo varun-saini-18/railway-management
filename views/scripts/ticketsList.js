@@ -79,7 +79,7 @@ function loadHTMLTable(data) {
     });
     table.innerHTML = tableHtml;
 }
-console.log(history);
+
 function func() {
     
         var url = '/gettickets';

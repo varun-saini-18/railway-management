@@ -46,6 +46,20 @@
 			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
 		</ul>
 	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $.getJSON("https://api.ipify.org?format=json",function(data) {
+            var link = window.location.href;
+			var res = link.split("/users/");
+			var host=res[0];
+			var url = host+'/addvisitor/'+data.ip;
+			fetch(url)
+            .then();
+        });
+	</script>
+
+
 </body>
 
 </html>

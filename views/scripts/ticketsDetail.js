@@ -88,7 +88,7 @@ function func() {
     var url = '/getticket/'+ticket_id;
     fetch(url)
         .then((response) => response.json())
-    .then(function (result) {
+        .then(function (result) {
         data=result.data;
         if(data.length)
         {
