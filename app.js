@@ -53,6 +53,10 @@ app.get("/users/register", checkAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
 
+app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
+  res.render("dashboard", { user: req.user });
+});
+
 app.get('/getAll', (request, response) => {
   const db = dbService.getDbServiceInstance();
 
