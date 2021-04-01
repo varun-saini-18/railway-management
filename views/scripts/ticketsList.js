@@ -74,10 +74,9 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${train_num}</td>`;
         tableHtml += `<td>${src}</td>`;
         tableHtml += `<td>${dest}</td>`;
-        tableHtml += `<td><a href="/ticketdetail/${train_num}">View</a></td>`;
+        tableHtml += `<td><a href="/ticketdetail/${ticket_id}">View</a></td>`;
         tableHtml += "</tr>";
     });
-
     table.innerHTML = tableHtml;
 }
 

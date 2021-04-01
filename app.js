@@ -58,6 +58,14 @@ app.get('/ticketdetail/:id', checkNotAuthenticated,(request,response) => {
     response.render("ticketdetail", { user: request.user });
 })
 
+app.get('/getticket/:id', checkNotAuthenticated,(request,response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getTicketDetail(request.params.id);
+  result.then(data => {
+          response.json({data : data})
+      })
+  .catch(err => console.log(err));
+})
 
 
 

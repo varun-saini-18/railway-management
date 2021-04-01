@@ -59,39 +59,44 @@
 //     }
 // })
 
-function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+// function loadHTMLTable(data) {
+//     const table = document.querySelector('table tbody');
 
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
-        return;
-    }
+//     if (data.length === 0) {
+//         table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
+//         return;
+//     }
 
-    let tableHtml = "";
+//     let tableHtml = "";
 
-    data.forEach(function ({ticket_id,train_num, src, dest}) {
-        tableHtml += "<tr>";
-        tableHtml += `<td>${train_num}</td>`;
-        tableHtml += `<td>${src}</td>`;
-        tableHtml += `<td>${dest}</td>`;
-        tableHtml += `<td><a href="/ticketdetail/${train_num}">View</a></td>`;
-        tableHtml += "</tr>";
-    });
+//     data.forEach(function ({ticket_id,train_num, src, dest}) {
+//         tableHtml += "<tr>";
+//         tableHtml += `<td>${train_num}</td>`;
+//         tableHtml += `<td>${src}</td>`;
+//         tableHtml += `<td>${dest}</td>`;
+//         tableHtml += `<td><a href="/ticketdetail/${train_num}">View</a></td>`;
+//         tableHtml += "</tr>";
+//     });
 
-    table.innerHTML = tableHtml;
-}
+//     table.innerHTML = tableHtml;
+// }
 
 function func() {
-        var url = '/gettickets';
-        fetch(url)
-            .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            var result = data.data;
-            loadHTMLTable(result);
-        })
-    }
+    var link = window.location.href;
+    var res = link.split("http://localhost:5000/ticketdetail/");
+    var ticket_id=parseInt(res[1]);
+    var url = '/getticket/'+ticket_id;
+    fetch(url)
+        .then(function (response) 
+        { return response.json(); })
+    .then(function (result) {
+        data=result.data;
+        setTimeout(function(){ document.getElementById("ticket-id").innerHTML = data[0].ticket_id; },10);
+        setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
+        setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
+        setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500);        
+    })
+}
 
 func();
 

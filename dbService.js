@@ -90,11 +90,11 @@ class DbService {
         }
     }
 
-    async getTrainName(train_id) {
+    async getTicketDetail(ticket_id) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM trains WHERE user_id= ?;";
-                connection.query(query,[train_id], (err, results) => {
+                const query = "SELECT * FROM tickets WHERE ticket_id= ?;";
+                connection.query(query,[ticket_id], (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })
@@ -104,6 +104,21 @@ class DbService {
             console.log(error);
         }
     }
+
+    // async getTrainName(train_id) {
+    //     try {
+    //         const response = await new Promise((resolve, reject) => {
+    //             const query = "SELECT * FROM tickets WHERE user_id= ?;";
+    //             connection.query(query,[train_id], (err, results) => {
+    //                 if (err) reject(new Error(err.message));
+    //                 resolve(results);
+    //             })
+    //         });
+    //         return response;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     async registerUser(username,email,password) {
         try {
