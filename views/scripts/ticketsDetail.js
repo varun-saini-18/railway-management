@@ -87,14 +87,20 @@ function func() {
     var ticket_id=parseInt(res[1]);
     var url = '/getticket/'+ticket_id;
     fetch(url)
-        .then(function (response) 
-        { return response.json(); })
+        .then((response) => response.json())
     .then(function (result) {
         data=result.data;
         setTimeout(function(){ document.getElementById("ticket-id").innerHTML = data[0].ticket_id; },10);
         setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
         setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
-        setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500);        
+        setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500); 
+        var url = '/gettrainname/'+data[0].train_num;
+        fetch(url)
+            .then( (response) => response.json())
+        .then(function (result) {
+            var trainName=result.data;
+            setTimeout(function(){ document.getElementById("train-name").innerHTML = trainName[0].train_name; },10);
+        })       
     })
 }
 
