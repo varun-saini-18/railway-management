@@ -79,8 +79,9 @@ function loadHTMLTable(data) {
     });
     table.innerHTML = tableHtml;
 }
-
+console.log(history);
 function func() {
+    
         var url = '/gettickets';
         fetch(url)
             .then(function (response) {

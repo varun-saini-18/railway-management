@@ -50,16 +50,22 @@
         <th>Detail</th>
     </thead>
     <tbody>
-
     </tbody>
     
   </table>
 
-  <div id="dynamic_list">
-  </div>
+  <p id="ip-addr"></p>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/scripts/ticketsList.js"></script>
-  <script>
+  
+    <script>
+       
+  
+        $.getJSON("https://api.ipify.org?format=json",
+                                          function(data) {
+            $("#ip-addr").html(data.ip);
+        })
+    
     function searchPNR() {
       var x = document.getElementById("search-box").value;
       var link = window.location.href;
