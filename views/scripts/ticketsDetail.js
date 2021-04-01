@@ -83,7 +83,7 @@
 
 function func() {
     var link = window.location.href;
-    var res = link.split("http://localhost:5000/ticketdetail/");
+    var res = link.split("/ticketdetail/");
     var ticket_id=parseInt(res[1]);
     var url = '/getticket/'+ticket_id;
     fetch(url)
