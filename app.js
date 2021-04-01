@@ -5,12 +5,19 @@ const movies = require('./movies');
 
 app.use(express.json());
 
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + '/views'));
+
 app.use('/abc', movies);
 
 
-app.get('/', (req,res) => {
-    res.send('Welcome to Daily Code Buffer in Heroku Auto Deployment!!');
-})
+// app.get('/', (req,res) => {
+//     res.send('Welcome to Daily Code Buffer in Heroku Auto Deployment!!');
+// })
+
+app.get("/", (req, res) => {
+    res.render("index");
+  });
 
 
 
