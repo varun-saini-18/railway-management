@@ -1,7 +1,5 @@
 const express = require('express');
 const app = express();
-const Joi = require('@hapi/joi');
-const movies = require('./movies');
 const dbService = require('./dbService');
 const passport = require("passport");
 const session = require("express-session");
@@ -11,10 +9,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-
 app.use(bodyParser.json());
-
 app.use(
   session({
     // Key we want to keep secret which will encrypt all of our information
@@ -25,24 +20,24 @@ app.use(
     saveUninitialized: false
   })
 );
-
 const initializePassport = require("./passportConfig");
 initializePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 app.use(express.json());
-
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/views'));
 
-app.use('/abc', movies);
 
-app.get("/", (req, res) => {
-    res.render("index");
-  });
+app.get("/", checkAuthenticated, (req, res) => {
+  res.redirect('/users/login');
+});
 
+
+
+
+// Authentication
 app.get("/users/login", checkAuthenticated, (req, res) => {
   // flash sets a messages variable. passport sets the error message
   // console.log(req.session.flash.error);
@@ -80,7 +75,6 @@ app.post('/users/register', (request,response) => {
   .catch(err => console.log(err));
 })
 
-
 app.post(
   "/users/login",
   passport.authenticate("local", {
@@ -90,12 +84,10 @@ app.post(
   })
 );
 
-
 app.get("/users/logout", (req, res) => {
   req.logout();
   res.render("index", { message: "You have logged out successfully" });
 });
-
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -122,4 +114,3 @@ function checkNotAuthenticated(req, res, next) {
 
 const port = process.env.PORT || '5000';
 app.listen(port, () => console.log(`Server started on Port ${port}`));
-
