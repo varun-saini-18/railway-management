@@ -90,6 +90,20 @@ class DbService {
         }
     }
 
+    async getTrainName(train_id) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM trains WHERE user_id= ?;";
+                connection.query(query,[train_id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async registerUser(username,email,password) {
         try {

@@ -54,6 +54,10 @@ app.get('/gettickets', checkNotAuthenticated,(request,response) => {
   .catch(err => console.log(err));
 })
 
+app.get('/ticketdetail/:id', checkNotAuthenticated,(request,response) => {
+    response.render("ticketdetail", { user: request.user });
+})
+
 
 
 
