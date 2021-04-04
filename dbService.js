@@ -121,6 +121,21 @@ class DbService {
         }
     }
 
+    async getTrainDetail(train_num) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM `"+ train_num +"`;";
+                connection.query(query,[], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async registerUser(username,email,password) {
         try {
             const insertId = await new Promise((resolve, reject) => {

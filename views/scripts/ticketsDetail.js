@@ -1,92 +1,9 @@
-// // To specify the starting index
-// var start = -1; 
-
-// function myFunc() {
-//     var email = document.getElementById('search_state').value;
-//     window.location.href = "http://localhost:3000/user_panel/"+email;
-// }
-
-// // This function is called to load initial users when the page loads.
-// func();
-
-// function func() {
-//     start=start+1;
-//     var url = '/users_list/'+start;
-//     fetch(url)
-//         .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         const users = data.users;
-//         console.log(users);
-//         for(var i=0;i<users.length;i++)
-//         {
-//             var url = 'href="/user_panel/'+users[i].email + '"'
-//             $('#dynamic_list').append(' <div class="card"><a class="link"' + url +'><div class="center"><h2>'+users[i].name+'</h2></div></a></div><br>');
-//         }
-//     })
-// }
-
-// var working = false;
-// console.log('Yes')
-
-// // This function gets call whenever scrollbar touches bottom
-// $(window).scroll(function() {
-//     if ($(this).scrollTop() + 1 >= $('body').height() - $(window).height()) {
-//         if (working == false) {
-//             working = true;
-//             start=start+1;
-//             console.log(start*4+22)
-//             var url = '/users_list/'+start;
-//             fetch(url)
-//             .then(function (response) {
-//                 return response.json();
-//             })
-//             .then(function (data) {
-//                 const users = data.users;
-//                 console.log(users);
-//                 for(var i=0;i<users.length;i++)
-//                 {
-//                     var url = 'href="/user_panel/'+users[i].email + '"'
-//                     $('#dynamic_list').append(' <div class="card"><a class="link"' + url +'><div class="center"><h2>'+users[i].name+'</h2></div></a></div><br>');
-//                 }
-                
-//             })
-//             setTimeout(function() {
-//                 working = false;
-//             }, 100)
-//         }
-//     }
-// })
-
-// function loadHTMLTable(data) {
-//     const table = document.querySelector('table tbody');
-
-//     if (data.length === 0) {
-//         table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
-//         return;
-//     }
-
-//     let tableHtml = "";
-
-//     data.forEach(function ({ticket_id,train_num, src, dest}) {
-//         tableHtml += "<tr>";
-//         tableHtml += `<td>${train_num}</td>`;
-//         tableHtml += `<td>${src}</td>`;
-//         tableHtml += `<td>${dest}</td>`;
-//         tableHtml += `<td><a href="/ticketdetail/${train_num}">View</a></td>`;
-//         tableHtml += "</tr>";
-//     });
-
-//     table.innerHTML = tableHtml;
-// }
-
-function func() {
+function fillTicketDetail() {
     var link = window.location.href;
     var res = link.split("/ticketdetail/");
     var ticket_id=parseInt(res[1]);
-    var url = '/getticket/'+ticket_id;
-    fetch(url)
+    var url1 = '/getticket/'+ticket_id;
+    fetch(url1)
         .then((response) => response.json())
         .then(function (result) {
         data=result.data;
@@ -96,24 +13,59 @@ function func() {
             setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
             setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
             setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500); 
-            var url = '/gettrainname/'+data[0].train_num;
-            fetch(url)
+            setTimeout(function(){ document.getElementById("coach-num").innerHTML = data[0].Coach_num; },1500); 
+            setTimeout(function(){ document.getElementById("seat-num").innerHTML = data[0].Seat_num; },1500); 
+            setTimeout(function(){ document.getElementById("seat-type").innerHTML = data[0].Seat_type; },1500); 
+            var url1 = '/gettrainname/'+data[0].train_num;
+            var url2 = '/gettraindetail/'+data[0].train_num;
+            fetch(url1)
                 .then( (response) => response.json())
             .then(function (result) {
                 var trainName=result.data;
                 setTimeout(function(){ document.getElementById("train-name").innerHTML = trainName[0].train_name; },10);
+            })
+
+            fetch(url2)
+                .then( (response) => response.json())
+            .then(function (result) {
+                result = result.data;
+                var src = data[0].src;
+                var dest = data[0].dest;
+                console.log(result);
+                let src_dist,dest_dist;
+                for(var i=0;i<result.length;i++)
+                {
+                    if(result[i].src_station===src)
+                    {
+                        const arr = result[i].arr;
+                        const dep = result[i].dep;
+                        src_dist = result[i].dist;
+                        setTimeout(function(){ document.getElementById("src-arr").innerHTML = arr; },500); 
+                        setTimeout(function(){ document.getElementById("src-dep").innerHTML = dep; },1000); 
+                    }
+                    if(result[i].src_station.toLowerCase()===dest.toLowerCase())
+                    {
+                        const arr = result[i].arr;
+                        const dep = result[i].dep;
+                        dest_dist = result[i].dist;
+                        setTimeout(function(){ document.getElementById("dest-arr").innerHTML = arr; },500); 
+                        setTimeout(function(){ document.getElementById("dest-dep").innerHTML = dep; },1000);
+                    }
+                }
+                setTimeout(function(){ document.getElementById("distance").innerHTML = dest_dist-src_dist; },1000);
+                setTimeout(function(){ document.getElementById("fare").innerHTML = (dest_dist-src_dist)*2; },1000);
             })  
         }
         else
         {
-            setTimeout(function(){ document.getElementById("ticket-id").innerHTML = 'Not Found'; },10);
-            setTimeout(function(){ document.getElementById("train-num").innerHTML = 'Not Found'; },500);
-            setTimeout(function(){ document.getElementById("src").innerHTML = 'Not Found'; },1000);
-            setTimeout(function(){ document.getElementById("dest").innerHTML = 'Not Found'; },1500); 
-            setTimeout(function(){ document.getElementById("train-name").innerHTML = 'Not Found'; },10);
+            document.getElementById("ticket-id").innerHTML = 'Not Found'; 
+            document.getElementById("train-num").innerHTML = 'Not Found';
+            document.getElementById("src").innerHTML = 'Not Found';
+            document.getElementById("dest").innerHTML = 'Not Found';
+            document.getElementById("train-name").innerHTML = 'Not Found';
         }   
-    })
+    });
 }
 
-func();
+fillTicketDetail();
 
