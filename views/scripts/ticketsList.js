@@ -71,7 +71,7 @@ function loadHTMLTable(data) {
 
     data.forEach(function ({ticket_id,train_num, src, dest}) {
         tableHtml += "<tr>";
-        tableHtml += `<td>${train_num}</td>`;
+        tableHtml += `<td><a href="/traindetail/${train_num}">${train_num}</a></td>`;
         tableHtml += `<td>${src}</td>`;
         tableHtml += `<td>${dest}</td>`;
         tableHtml += `<td><a href="/ticketdetail/${ticket_id}">View</a></td>`;

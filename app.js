@@ -67,6 +67,10 @@ app.get('/getticket/:id', checkNotAuthenticated,(request,response) => {
   .catch(err => console.log(err));
 })
 
+app.get('/traindetail/:id', checkNotAuthenticated,(request,response) => {
+  response.render("traindetail");
+})
+
 app.get('/gettrainname/:num', checkNotAuthenticated,(request,response) => {
   const db = dbService.getDbServiceInstance();
   const result = db.getTrainName(request.params.num);
