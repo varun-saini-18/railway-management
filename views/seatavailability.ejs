@@ -34,11 +34,14 @@
 
   <h4>Hello <%= user.username %>
   </h4>
-  <input id="src" type="text" placeholder="Enter Src">
-  <br>
-  <input id="dest" type="text" placeholder="Enter Dest">
-  <br>
-  <br>
+  <select id="src" name="plan">
+    <!-- <option value="4">Plan 4</option> -->
+  </select>
+  
+  <select id="dest" name="plan">
+    <!-- <option value="4">Plan 4</option> -->
+  </select>
+  <br><br>
   <button type="button" onclick="searchTrains()">Search Trains!</button>
   <table id="table" style="background-color:rgb(226, 228, 146); display:none; ">
     <thead>

@@ -69,3 +69,25 @@ function searchTrains() {
         }
     })
 }
+
+function loadStations()
+{
+    fetch('/getstations')
+    .then(response => response.json())
+    .then(data => {
+        data = data.data;
+        let src = '<option value="0">Select Src</option>';
+        let dest = '<option value="0">Select Dest</option>';
+        for(let i=0;i<data.length;i++)
+        {
+            src+=`<option value="${data[i].name}">${data[i].name}</option>`
+            dest+=`<option value="${data[i].name}">${data[i].name}</option>`
+        }
+        document.getElementById("src").innerHTML = src;
+        document.getElementById("dest").innerHTML = dest;
+    });
+}
+
+
+loadStations();
+

@@ -6,7 +6,6 @@ const dbService = require('./dbService');
 
 function initialize(passport) {
   const authenticateUser = (email, password, done) => {
-    console.log('Yes');
     const db = dbService.getDbServiceInstance();
     const result = db.authUser(email);
     

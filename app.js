@@ -87,6 +87,15 @@ app.get('/traindetail/:id', checkNotAuthenticated,(request,response) => {
   response.render("traindetail");
 })
 
+app.get('/getstations', checkNotAuthenticated,(request,response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getStations();
+  result.then(data => {
+          response.json({data : data})
+      })
+  .catch(err => console.log(err));
+});
+
 app.get('/gettrainname/:num', checkNotAuthenticated,(request,response) => {
   const db = dbService.getDbServiceInstance();
   const result = db.getTrainName(request.params.num);

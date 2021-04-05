@@ -133,6 +133,21 @@ class DbService {
         }
     }
 
+    async getStations() {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM Stations;";
+                connection.query(query,[], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async getTicketDetail(ticket_id) {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -206,6 +221,7 @@ class DbService {
                 const query = "SELECT * FROM users WHERE email = ?";
                 connection.query(query, [email] , (err, result) => {
                     if (err) reject(new Error(err.message));
+                    console.log(result);
                     resolve(result);
                 })
             });
