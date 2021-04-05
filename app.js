@@ -34,6 +34,22 @@ app.get("/", checkAuthenticated, (req, res) => {
   res.redirect('/users/login');
 });
 
+app.get("/seatavailability", checkNotAuthenticated, (req, res) => {
+  res.render("seatavailability", { user: req.user });
+});
+
+app.get("/searchtrains/:stations", checkNotAuthenticated, (req, res) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getTrains(req.params.stations);
+  result.then(data => {
+          res.json({data : data})
+      })
+  .catch(err => console.log(err));
+});
+
+app.get("/myticketslist", checkNotAuthenticated, (req, res) => {
+  res.render("ticketList", { user: req.user });
+});
 
 app.post('/bookticket', checkNotAuthenticated,(request,response) => {
   const db = dbService.getDbServiceInstance();
@@ -74,7 +90,6 @@ app.get('/traindetail/:id', checkNotAuthenticated,(request,response) => {
 app.get('/gettrainname/:num', checkNotAuthenticated,(request,response) => {
   const db = dbService.getDbServiceInstance();
   const result = db.getTrainName(request.params.num);
-  console.log(request.params.num);
   result.then(data => {
           response.json({data : data})
       })
@@ -120,7 +135,6 @@ app.get('/getAll', (request, response) => {
 
 app.post('/users/register', (request,response) => {
   const db = dbService.getDbServiceInstance();
-  console.log(request.body);
   const { username,email,password}= request.body;
   // console.log(username,email,password,plan);
   const result = db.registerUser(username,email,password);

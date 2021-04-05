@@ -17,14 +17,15 @@
     <p style="text-align: center;">Railway management system!</p>
   </div>
   <div class="navbar">
-    <a href="#1"><i class="fas fa-search"></i> Query Builder</a>
-    <a href="#2"><i class="far fa-file-alt"></i> Reports</a>
+    <a href="/"></i>Home</a>
+    <a href="/myticketslist"><i class="fas fa-search"></i> Query Builder</a>
+    <a href="/seatavailability"></i> Seat Availability</a>
+    <a href="/myticketslist"><i class="far fa-file-alt"></i>My Bookings</a>
     <div class="dropdown">
       <button class="dropbtn">
         <i class="fas fa-user-cog"></i>
         Admin
       </button>
-      
     </div>
     <a style="float:right" href="/users/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
@@ -36,7 +37,7 @@
   <input id="search-box" type="number" placeholder="Search PNR Number..">
   <br>
   <button type="button" onclick="searchPNR()">Search PNR!</button>
-  <table id="table" style="background-color:rgb(226, 228, 146);">
+  <!-- <table id="table" style="background-color:rgb(226, 228, 146);">
     <thead>
       <th></th>
       <th>Your Tickets</th>
@@ -52,11 +53,11 @@
     <tbody>
     </tbody>
     
-  </table>
+  </table> -->
   <h4>Your Ip Address</h4>
   <p id="ip-addr"></p>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/scripts/ticketsList.js"></script>
+  <!-- <script src="/scripts/ticketsList.js"></script> -->
   
   <script>
     

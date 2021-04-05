@@ -10,7 +10,7 @@ function fillTicketDetail() {
         if(data.length)
         {
             setTimeout(function(){ document.getElementById("ticket-id").innerHTML = data[0].ticket_id; },10);
-            setTimeout(function(){ document.getElementById("train-num").innerHTML = data[0].train_num; },500);
+            setTimeout(function(){ document.getElementById("train-num").innerHTML = `<a href="/traindetail/${data[0].train_num}">${data[0].train_num}</a>`; },500);
             setTimeout(function(){ document.getElementById("src").innerHTML = data[0].src; },1000);
             setTimeout(function(){ document.getElementById("dest").innerHTML = data[0].dest; },1500); 
             setTimeout(function(){ document.getElementById("coach-num").innerHTML = data[0].Coach_num; },1500); 
@@ -31,7 +31,6 @@ function fillTicketDetail() {
                 result = result.data;
                 var src = data[0].src;
                 var dest = data[0].dest;
-                console.log(result);
                 let src_dist,dest_dist;
                 for(var i=0;i<result.length;i++)
                 {

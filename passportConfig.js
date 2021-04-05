@@ -14,17 +14,14 @@ function initialize(passport) {
       if (user.userFound) {
                 if(user.password==password)
                 {
-                  console.log('User Found');
                   return done(null, user);
                 }
                 else
                 {
-                  console.log('Password didnt matched!');
                   return done(null, false, { message: "Password is incorrect" });
                 }
             } 
       else {
-        console.log('User not found!');
         return done(null, false, {
           message: "No user with that email address"
         });

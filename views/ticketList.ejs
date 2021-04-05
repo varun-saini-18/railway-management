@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <title>Ticket Detail</title>
+  <title>Dashboard</title>
 </head>
 
 <body>
@@ -31,51 +31,32 @@
     <a style="float:right" href="/users/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
 
+  <h1>Your Tickets List</h1>
+
   <h4>Hello <%= user.username %>
   </h4>
-
-  <h1>Ticket Detail</h1>
-
+  <input id="search-box" type="number" placeholder="Search PNR Number..">
+  <br>
+  <button type="button" onclick="searchPNR()">Search PNR!</button>
   <table id="table" style="background-color:rgb(226, 228, 146);">
     <thead>
-        <th>Ticket Id</th>
-        <th>Train Number</th>
-        <th>Train Name</th>
-        <th>Source</th>
-        <th>Source Arrival</th>
-        <th>Source Departure</th>
-        <th>Destination</th>
-        <th>Destination Arrival</th>
-        <th>Destination Departure</th>
-        <th>Coach Number</th>
-        <th>Seat Number</th>
-        <th>Seat Type</th>
-        <th>Distance Journey</th>
-        <th>Fare</th>
+      <th></th>
+      <th>Your Tickets</th>
+      <th></th>
+      <th></th>
     </thead>
     <thead>
-        <th id="ticket-id"></th>
-        <th id="train-num"></th>
-        <th id="train-name"></th>
-        <th id="src"></th>
-        <th id="src-arr"></th>
-        <th id="src-dep"></th>
-        <th id="dest"></th>
-        <th id="dest-arr"></th>
-        <th id="dest-dep"></th>
-        <th id="coach-num"></th>
-        <th id="seat-num"></th>
-        <th id="seat-type"></th>
-        <th id="distance"></th>
-        <th id="fare"></th>
+        <th>Train Number</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Detail</th>
     </thead>
-    <tbody></tbody>
+    <tbody>
+    </tbody>
+    
   </table>
-
-  <div id="dynamic_list">
-  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/scripts/ticketsDetail.js"></script>
+  <script src="/scripts/ticketsList.js"></script>
 </body>
 
 </html>

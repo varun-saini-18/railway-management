@@ -64,13 +64,55 @@ class DbService {
                 const query = "INSERT INTO tickets (user_id, train_num, src,dest) VALUES (?,?,?,?);";
                 connection.query(query, [user_id,train_num,src,dest] , (err, result) => {
                     if (err) reject(new Error(err.message));
-                    console.log(result);
                     resolve(result.insertId);
                 })
             });
             return {
                 id : insertId
             };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getTrains(stations) {
+        try {
+            let res = stations.split("+");
+            let src = res[0], dest = res[1];
+            const allTrains = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM trains;";
+                connection.query(query,[], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                })
+            });
+            const selectedTrains = await new Promise((resolve, reject) => {
+                var sTrains = [];
+                for(let i=0;i<allTrains.length;i++)
+                {
+                    const query = "SELECT * FROM `"+ allTrains[i].train_num +"`;";
+                    connection.query(query,[], (err, results) => {
+                        if (err) reject(new Error(err.message));
+                        let srci=-1,desti=-1;
+                        for(let j=0;j<results.length;j++)
+                        {
+                            if(results[j].src_station.toLowerCase()===src.toLowerCase())
+                            {
+                                srci=j;
+                            }
+                            if(results[j].src_station.toLowerCase()===dest.toLowerCase())
+                            {
+                                desti=j;
+                            }
+                        }
+                        if(srci!=-1&&desti!=-1&&desti>srci)
+                        sTrains.push(allTrains[i].train_num);
+                        if(i==allTrains.length-1)
+                        resolve(sTrains);
+                    })
+                }
+            });
+            return selectedTrains;
         } catch (error) {
             console.log(error);
         }
@@ -231,7 +273,6 @@ class DbService {
                     resolve(result.insertId);
                 })
             });
-            console.log(insertId,Name,Numb);
             return {
                 id : insertId,
                 Name : Name,
