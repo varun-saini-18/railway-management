@@ -60,16 +60,22 @@
 // })
 
 function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
+    
 
     if (data.length === 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
         return;
     }
 
-    let tableHtml = "";
+    let tableHtml = `<tr>
+    <th>Train Number</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Detail</th>
+    </tr>`;
 
     data.forEach(function ({ticket_id,train_num, src, dest}) {
+
         tableHtml += "<tr>";
         tableHtml += `<td><a href="/traindetail/${train_num}">${train_num}</a></td>`;
         tableHtml += `<td>${src}</td>`;
@@ -77,7 +83,7 @@ function loadHTMLTable(data) {
         tableHtml += `<td><a href="/ticketdetail/${ticket_id}">View</a></td>`;
         tableHtml += "</tr>";
     });
-    table.innerHTML = tableHtml;
+    document.getElementById("table").innerHTML = tableHtml;
 }
 
 function func() {

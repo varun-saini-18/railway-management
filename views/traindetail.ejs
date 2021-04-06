@@ -2,39 +2,69 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link href="/styles/dashboard.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <title>Dashboard</title>
+  <title>Train Details</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
+
+<style>
+
+  #main-body {
+    background-color: mintcream;
+  }
+
+  .center {
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+  }
+
+  #table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #table tr:nth-child(even){background-color: #f2f2f2;}
+  #table tr:nth-child(odd){background-color: white;}
+  
+  #table tr:hover {background-color: #ddd;}
+  
+  #table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: lightblue;
+    color: white;
+  }
+
+  
+</style>
+
 
 <body>
 
-  <div class="navbar" style="background-color:powderblue;">
-    <p style="text-align: center;">Railway management system!</p>
-  </div>
-  <div class="navbar">
-    <a href="/"></i>Home</a>
-    <a href="/myticketslist"><i class="fas fa-search"></i> Query Builder</a>
-    <a href="/seatavailability"></i> Seat Availability</a>
-    <a href="/myticketslist"><i class="far fa-file-alt"></i>My Bookings</a>
-    <div class="dropdown">
-      <button class="dropbtn">
-        <i class="fas fa-user-cog"></i>
-        Admin
-      </button>
-      
-    </div>
-    <a style="float:right" href="/users/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  <div id="nav"></div>
+  <div id="header"></div>
+
+
+  <div class="center" id="train-detail">
+    
   </div>
 
-  <h1>Your Train Detail</h1>
-
-  </h4>
-  <table id="table" style="background-color:rgb(226, 228, 146);">
+  <table id="table"></table>
+  <br><br>
+  <!-- <table id="table" style="background-color:rgb(226, 228, 146);">
     <thead>
       <th></th>
       <th id="train-num">Train Detail</th>
@@ -50,20 +80,13 @@
     <tbody>
     </tbody>
     
-  </table>
-  <h4>Your Ip Address</h4>
-  <p id="ip-addr"></p>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/scripts/traindetail.js"></script>
+  </table> -->
   
-  <script>
-    
-    $.getJSON("https://api.ipify.org?format=json",
-                                      function(data) {
-        $("#ip-addr").html(data.ip);
-    })
-    
-  </script>
+
+  <div id="footer"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/scripts/template.js"></script>
+  <script src="/scripts/traindetail.js"></script>
 </body>
 
 </html>

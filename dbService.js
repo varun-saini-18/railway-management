@@ -34,7 +34,11 @@ var db_config = {
       if(err) {                                     // or restarting (takes a while sometimes).
         console.log('error when connecting to db:', err);
         setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-      }                                     // to avoid a hot loop, and to allow our node script to
+      }  
+      else
+      {
+          console.log('Connected');
+      }                                   // to avoid a hot loop, and to allow our node script to
     });                                     // process asynchronous requests in the meantime.
                                             // If you're also serving http, display a 503 error.
     connection.on('error', function(err) {
@@ -59,13 +63,30 @@ class DbService {
 
     async bookTicket(user_id,train_num,src,dest) {
         try {
+            const seatsReserved = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM trains WHERE train_num = ?;";
+                connection.query(query,[train_num], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results[0].seats_res);
+                })
+            });
+            const seat_num = seatsReserved + 1;
+            const coach_num = 'A' + Math.floor(seat_num/40+1);
+            let seat_type = 'Upper';
+            if(seat_num%3==0)
+                seat_type = 'Lower';
+            else if(seat_num%3==1)
+                seat_type = 'Middle';
             const insertId = await new Promise((resolve, reject) => {
-                
-                const query = "INSERT INTO tickets (user_id, train_num, src,dest) VALUES (?,?,?,?);";
-                connection.query(query, [user_id,train_num,src,dest] , (err, result) => {
+                const query = "INSERT INTO tickets (user_id, train_num, src,dest,Seat_num,Coach_num,Seat_type) VALUES (?,?,?,?,?,?,?);";
+                connection.query(query, [user_id,train_num,src,dest,seat_num,coach_num,seat_type] , (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 })
+            });
+            const updateSeats = await new Promise((resolve, reject) => {
+                const sql = "UPDATE trains SET seats_res = seats_res + 1 WHERE  train_num = ?";
+                connection.query(sql, [train_num], (err, results) => {resolve('OK');})
             });
             return {
                 id : insertId
@@ -221,7 +242,6 @@ class DbService {
                 const query = "SELECT * FROM users WHERE email = ?";
                 connection.query(query, [email] , (err, result) => {
                     if (err) reject(new Error(err.message));
-                    console.log(result);
                     resolve(result);
                 })
             });
