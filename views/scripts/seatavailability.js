@@ -64,14 +64,42 @@ function searchTrains() {
                     if(result[j].src_station.toLowerCase()===src.toLowerCase())
                     {
                         document.getElementById(`${data[i]}-src`).innerHTML = src;
-                        document.getElementById(`${data[i]}-src-arr`).innerHTML = result[j].arr;
-                        document.getElementById(`${data[i]}-src-dep`).innerHTML = result[j].dep;
+                        let arr_time = String(Math.ceil(parseInt(result[j].arr)/60));
+                        let arr_time_min = parseInt(result[j].arr)%60;
+                        if(arr_time_min<10)
+                            arr_time += ':0';
+                        else
+                            arr_time += ':';                       
+                        arr_time+=arr_time_min;
+                        let dep_time = String(Math.ceil(parseInt(result[j].dep)/60));
+                        let dep_time_min = parseInt(result[j].dep)%60;
+                        if(dep_time_min<10)
+                            dep_time += ':0';
+                        else
+                            dep_time += ':';                       
+                        dep_time+=dep_time_min;
+                        document.getElementById(`${data[i]}-src-arr`).innerHTML = arr_time;
+                        document.getElementById(`${data[i]}-src-dep`).innerHTML = dep_time;
                     }
                     if(result[j].src_station.toLowerCase()===dest.toLowerCase())
                     {
                         document.getElementById(`${data[i]}-dest`).innerHTML = dest;
-                        document.getElementById(`${data[i]}-dest-arr`).innerHTML = result[j].arr;
-                        document.getElementById(`${data[i]}-dest-dep`).innerHTML = result[j].dep;
+                        let arr_time = String(Math.ceil(parseInt(result[j].arr)/60));
+                        let arr_time_min = parseInt(result[j].arr)%60;
+                        if(arr_time_min<10)
+                            arr_time += ':0';
+                        else
+                            arr_time += ':';                       
+                        arr_time+=arr_time_min;
+                        let dep_time = String(Math.ceil(parseInt(result[j].dep)/60));
+                        let dep_time_min = parseInt(result[j].dep)%60;
+                        if(dep_time_min<10)
+                            dep_time += ':0';
+                        else
+                            dep_time += ':';                       
+                        dep_time+=dep_time_min;
+                        document.getElementById(`${data[i]}-dest-arr`).innerHTML = arr_time;
+                        document.getElementById(`${data[i]}-dest-dep`).innerHTML = dep_time;
                     }
                 }
             });

@@ -10,8 +10,22 @@ function loadHTMLTable(data) {
     data.forEach(function ({src_station, arr, dep, dist}) {
         tableHtml += "<tr>";
         tableHtml += `<td>${src_station}</td>`;
-        tableHtml += `<td>${arr}</td>`;
-        tableHtml += `<td>${dep}</td>`;
+        let arr_time = String(Math.ceil(parseInt(arr)/60));
+        let arr_time_min = parseInt(arr)%60;
+        if(arr_time_min<10)
+            arr_time += ':0';
+        else
+            arr_time += ':';                       
+        arr_time+=arr_time_min;
+        let dep_time = String(Math.ceil(parseInt(dep)/60));
+        let dep_time_min = parseInt(dep)%60;
+        if(dep_time_min<10)
+            dep_time += ':0';
+        else
+            dep_time += ':';                       
+        dep_time+=dep_time_min;
+        tableHtml += `<td>${arr_time}</td>`;
+        tableHtml += `<td>${dep_time}</td>`;
         tableHtml += `<td>${dist}</td>`;
         tableHtml += "</tr>";
     });
