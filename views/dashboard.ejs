@@ -10,6 +10,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
+<style>
+
+  .center {
+  margin: auto;
+  width: 20%;
+  padding: 25px;
+  } 
+
+</style>
+
 <body>
 
   <!-- Side Navigation -->
@@ -19,17 +29,46 @@
   <!-- Header -->
   <div id="header"></div>
 
-  
-  <h1>Dashboard</h1>
+  <br><br>
+  <div class="w3-row-padding">
 
-  <h4>Hello <%= user.username %></h4>
-  <input id="search-box" type="number" placeholder="Search PNR Number..">
-  <br>
-  <button type="button" onclick="searchPNR()">Search PNR!</button>
-  
-  
-  
+    <div class="w3-half">
+      <form class="w3-container w3-card-4 w3-teal">
+        <h2>Check Your PNR Here</h2>
+        <div class="w3-section">
+          <input id="search-pnr-box" class="w3-input" type="number" required>
+          <label>Enter PNR Number</label>
+        </div>
+        <button type="button" onclick="searchPNR()">Search</button>
+        <br><br>
+      </form>
+    </div>
+    
 
+    <div class="w3-half">
+      <form class="w3-container w3-card-4 w3-teal">
+        <h2>Check Train Details</h2>
+        <div class="w3-section">
+          <input id="search-train-box" class="w3-input" type="number" required>
+          <label>Enter Train Number</label>
+        </div>
+        <button type="button" onclick="searchTrain()">Search</button>
+        <br><br>
+      </form>
+    </div>
+
+  </div>  
+
+  <br><br>
+
+  <div class="w3-padding w3-white w3-display-container">
+    <h2 class="center">Some Facts</h2>
+    <p>The world's longest railway platform is in India at : Gorakhpur.</p>
+    <p>The Highest railway station in India : Ghum railway station (West Bengal).</p>
+    <p>Indian Railways transports almost 2.5 crore passengers daily.</p>
+  </div>
+
+  <br><br>
 
   <!-- Footer -->
   <div id="footer"></div>
@@ -46,11 +85,20 @@
     
     
     function searchPNR() {
-      var x = document.getElementById("search-box").value;
-      var link = window.location.href;
-      var res = link.split("/users/");
-      var rl=res[0];
-      var url = rl+'/ticketdetail/'+x;
+      let pnr_num = document.getElementById("search-pnr-box").value;
+      let link = window.location.href;
+      let res = link.split("/users/");
+      let host=res[0];
+      let url = host+'/ticketdetail/'+pnr_num;
+      window.location.href = url;
+    }
+
+    function searchTrain() {
+      let x = document.getElementById("search-train-box").value;
+      let link = window.location.href;
+      let res = link.split("/users/");
+      let host = res[0];
+      let url = host+'/traindetail/'+x;
       window.location.href = url;
     }
   </script>

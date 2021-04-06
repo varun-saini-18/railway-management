@@ -63,7 +63,8 @@ function loadHTMLTable(data) {
     
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
+        document.getElementById('id01').style.display='block';
+        document.getElementById("table").innerHTML = "";
         return;
     }
 

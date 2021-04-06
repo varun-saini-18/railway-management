@@ -4,14 +4,23 @@ $.getJSON("https://api.ipify.org?format=json",
 })
 
 function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
+        // table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
+        document.getElementById('id01').style.display='block';
+        document.getElementById("table").innerHTML = "";
         return;
     }
 
-    let tableHtml = "";
+    let tableHtml = `<tr>
+    <th>Train Number</th>
+    <th>Source</th>
+    <th>Source Arr</th>
+    <th>Source Dep</th>
+    <th>Destination</th>
+    <th>Destination Arr</th>
+    <th>Destination Dep</th>
+    </tr>`;
 
     data.forEach(function (data) {
         tableHtml += "<tr>";
@@ -24,7 +33,7 @@ function loadHTMLTable(data) {
         tableHtml += `<td id="${data}-dest-dep"></td>`;
         tableHtml += "</tr>";
     });
-    table.innerHTML = tableHtml;
+    document.getElementById("table").innerHTML = tableHtml;
 }
 
 function searchTrains() {

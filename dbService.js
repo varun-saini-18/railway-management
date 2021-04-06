@@ -45,7 +45,8 @@ var db_config = {
       console.log('db error', err);
       if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
         handleDisconnect();                         // lost due to either server restart, or a
-      } else {  handleDisconnect();   
+      } else { 
+        handleDisconnect();   
                                               // connnection idle timeout (the wait_timeout
         // throw err;                                  // server variable configures this)
       }
@@ -404,3 +405,4 @@ class DbService {
 }
 
 module.exports = DbService;
+

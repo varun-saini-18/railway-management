@@ -1,10 +1,5 @@
 function loadHTMLTable(data) {
 
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
-        return;
-    }
-
     let tableHtml = `<tr>
     <th>Station</th>
     <th>Arrival</th>
@@ -35,16 +30,25 @@ function func() {
     })
     .then(function (data) {
         var result = data.data;
-        setTimeout(function(){ document.getElementById("train-detail").innerHTML = '<h4> Here is detail for: <h3>' + result[0].train_name + `(${train_num})</h3></h4>`; },1000);
+        if(result.length)
+        {
+            setTimeout(function(){ document.getElementById("train-detail").innerHTML = '<h4> Here are details of: <h3>' + result[0].train_name + `(${train_num})</h3></h4>`; },1000);
+            fetch(url2)
+                .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                var result = data.data;
+                loadHTMLTable(result);
+            });
+        }
+        else
+        {
+            document.getElementById('id01').style.display='block';
+            document.getElementById("table").innerHTML = "";
+        }
     });
-    fetch(url2)
-        .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        var result = data.data;
-        loadHTMLTable(result);
-    });
+    
 }
 
 func();

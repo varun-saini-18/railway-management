@@ -10,46 +10,87 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
+<style>
+
+  .center {
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+  }
+
+  #table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #table tr:nth-child(even){background-color: #f2f2f2;}
+  #table tr:nth-child(odd){background-color: white;}
+  
+  #table tr:hover {background-color: #ddd;}
+  
+  #table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: lightblue;
+    color: white;
+  }
+
+  
+</style>
+
 <body>
 
   <div id="nav"></div>
   <div id="header"></div>
 
+
+
+  <h2 class="w3-center">Check Seat Availability</h2>
+  <div class="w3-center">
+    <br>
+    <select id="src" name="plan">
+      <!-- <option value="4">Plan 4</option> -->
+    </select>
+    <select id="dest" name="plan">
+      <!-- <option value="4">Plan 4</option> -->
+    </select>
+  </div>
+
+  <br>
+  <div class="w3-center" >
+    <button  type="button" onclick="searchTrains()">Search Trains!</button>
+  </div>
   
 
-  <h1>Check seat Availability</h1>
-
-  <h4>Hello <%= user.username %>
-  </h4>
-  <select id="src" name="plan">
-    <!-- <option value="4">Plan 4</option> -->
-  </select>
-  
-  <select id="dest" name="plan">
-    <!-- <option value="4">Plan 4</option> -->
-  </select>
+  <br>
+  <table id="table"></table>
   <br><br>
-  <button type="button" onclick="searchTrains()">Search Trains!</button>
-  <table id="table" style="background-color:rgb(226, 228, 146); display:none; ">
-    <thead>
-      <th></th>
-      <th>Your Tickets</th>
-      <th></th>
-      <th></th>
-    </thead>
-    <thead>
-        <th>Train Number</th>
-        <th>Source</th>
-        <th>Source Arrival</th>
-        <th>Source Departure</th>
-        <th>Destination</th>
-        <th>Destination Arrival</th>
-        <th>Destination Departure</th>
-    </thead>
-    <tbody>
-    </tbody>
-    
-  </table>
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-top">
+      <header class="w3-container w3-theme-l1">
+        <span onclick="document.getElementById('id01').style.display='none'"
+          class="w3-button w3-display-topright">×</span>
+        <h1>Oh ho!</h4>
+        <h4>There are no trains on this route.</h4>
+        <h5>Try other locations <i class="fa fa-smile-o"></i></h5>
+      </header>
+    </div>
+  </div>
+
+
+  <div id="space">
+    <br><br><br><br><br><br><br><br><br>
+  </div>
   
 
   <div id="footer"></div>
