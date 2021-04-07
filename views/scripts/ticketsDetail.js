@@ -75,8 +75,8 @@ function fillTicketDetail() {
                         else
                             dep_time += ':';                       
                         dep_time+=dep_time_min;
-                        setTimeout(function(){ document.getElementById("dest-arr").innerHTML = arr_time; },500); 
-                        setTimeout(function(){ document.getElementById("dest-dep").innerHTML = dep_time; },1000);
+                        setTimeout(function(){ document.getElementById("dest-arr").innerHTML = 'Arrival : ' + arr_time; },500); 
+                        setTimeout(function(){ document.getElementById("dest-dep").innerHTML = 'Departure : ' + dep_time; },1000);
                     }
                 }
                 setTimeout(function(){ document.getElementById("distance").innerHTML = dest_dist-src_dist; },1000);

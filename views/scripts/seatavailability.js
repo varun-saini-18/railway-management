@@ -3,10 +3,56 @@ $.getJSON("https://api.ipify.org?format=json",
     $("#ip-addr").html(data.ip);
 })
 
+function bookTicket(id)
+{
+    let train_num = id.split("-book-ticket");
+    train_num = train_num[0];
+    let src = document.getElementById(`${train_num}-src`).innerText;
+    let dest = document.getElementById(`${train_num}-dest`).innerText;
+    document.getElementById(`modal-h1`).innerHTML = 'Wait....';
+    document.getElementById(`modal-h4`).innerHTML = 'We are trying to book your ticket!';
+    document.getElementById(`modal-h5`).innerHTML = 'Thanks for showing patience.';
+    document.getElementById(`modal-span`).innerHTML = '';
+    document.getElementById('id01').style.display='block';
+    const url = '/bookticket';
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+            "train_num" : train_num,
+            "src" : src,
+            "dest" : dest
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => response.json())  
+    .then(json =>  json.data)
+    .then((data) => {
+        if(!!data.id)
+        {
+            document.getElementById(`modal-h1`).innerHTML = 'Success';
+            document.getElementById(`modal-h4`).innerHTML = 'Your ticket was successfuly booked!';
+            document.getElementById(`modal-h5`).innerHTML = `See your ticket <a href="/ticketdetail/${data.id}">"here"</a>`;
+            document.getElementById(`modal-span`).innerHTML = `<span onclick="document.getElementById('id01').style.display='none'"class="w3-button w3-display-topright">x</span>`;    
+        }
+        else
+        {
+            document.getElementById(`modal-h1`).innerHTML = 'Sorry';
+            document.getElementById(`modal-h4`).innerHTML = 'There was some issue while booking your ticket!';
+            document.getElementById(`modal-h5`).innerHTML = 'You can try again!';
+            document.getElementById(`modal-span`).innerHTML = `<span onclick="document.getElementById('id01').style.display='none'"class="w3-button w3-display-topright">x</span>`;    
+        }
+    })
+}
+
 function loadHTMLTable(data) {
 
     if (data.length === 0) {
-        // table.innerHTML = "<tr><td class='no-data' colspan='14'>No Data</td></tr>";
+        document.getElementById(`modal-h1`).innerHTML = 'Oh ho!';
+        document.getElementById(`modal-h4`).innerHTML = 'Sorry there are no trains on this route.';
+        document.getElementById(`modal-h5`).innerHTML = 'Please try other routes.';
+        document.getElementById(`modal-span`).innerHTML = `<span onclick="document.getElementById('id01').style.display='none'"class="w3-button w3-display-topright">x</span>`;
         document.getElementById('id01').style.display='block';
         document.getElementById("table").innerHTML = "";
         return;
@@ -20,6 +66,7 @@ function loadHTMLTable(data) {
     <th>Destination</th>
     <th>Destination Arr</th>
     <th>Destination Dep</th>
+    <th>Book Ticket?</th>
     </tr>`;
 
     data.forEach(function (data) {
@@ -31,6 +78,7 @@ function loadHTMLTable(data) {
         tableHtml += `<td id="${data}-dest"></td>`;
         tableHtml += `<td id="${data}-dest-arr"></td>`;
         tableHtml += `<td id="${data}-dest-dep"></td>`;
+        tableHtml += `<td ><button id="${data}-book-ticket" onClick="bookTicket(this.id);">Book Ticket</button></td>`;
         tableHtml += "</tr>";
     });
     document.getElementById("table").innerHTML = tableHtml;

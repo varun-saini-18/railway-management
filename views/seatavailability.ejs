@@ -41,7 +41,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: lightblue;
+    background-color: rgb(129, 213, 241);
     color: white;
   }
 
@@ -82,11 +82,13 @@
   <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-top">
       <header class="w3-container w3-theme-l1">
-        <span onclick="document.getElementById('id01').style.display='none'"
-          class="w3-button w3-display-topright">×</span>
-        <h1>Oh ho!</h4>
-        <h4>There are no trains on this route.</h4>
-        <h5>Try other locations <i class="fa fa-smile-o"></i></h5>
+        <div id="modal-span">
+          <span onclick="document.getElementById('id01').style.display='none'"
+            class="w3-button w3-display-topright">x</span>
+        </div>
+        <h1 id="modal-h1">Oh ho!</h4>
+        <h4 id="modal-h4">There are no trains on this route.</h4>
+        <h5 id="modal-h5">Try other locations <i class="fa fa-smile-o"></i></h5>
       </header>
     </div>
   </div>
