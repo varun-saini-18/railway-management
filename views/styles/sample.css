@@ -216,7 +216,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     -o-transition: .5s all;
     -ms-transition: .5s all;
     transition: .5s all;
-    background: #157cf1;
+    background: #696969;
   }
   
   .agileits-top p {
@@ -236,7 +236,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
   
   .agileits-top p a:hover {
-    color: #76b852;
+    color: #696969;
   }
   
   /*-- //main --*/
