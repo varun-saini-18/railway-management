@@ -148,7 +148,7 @@ app.post('/users/register', (request,response) => {
   // console.log(username,email,password,plan);
   const result = db.registerUser(username,email,password);
   result.then(data => {
-          response.json({data : data})
+    response.render("index", { message: "Registration sucessfull!" });
       })
   .catch(err => console.log(err));
 })
